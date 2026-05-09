@@ -1,184 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hey cherrypie 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Special+Elite&display=swap');
-
 *{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --pink-0:#fff0f5;
+  --pink-1:#fde2ec;
+  --pink-2:#f9b8d0;
+  --pink-3:#f49bb8;
+  --pink-4:#e0758f;
+  --warm:#fff7f0;
+  --text-dark:#3a1a24;
+  --text-mid:#8c4a60;
+  --text-soft:#c48a9e;
+  --border:#f2c0d0;
+  --shadow:rgba(200,100,130,0.18);
+}
+
+html,body{height:100%}
 
 body{
   min-height:100vh;
-  background:#f0ebe0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-family:'Special Elite',monospace;
+  background:var(--pink-0);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  font-family:'DM Sans',sans-serif;
   overflow-x:hidden;
   position:relative;
   padding:24px 16px;
 }
 
-#float-canvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;
+/* soft gradient bg */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 20% 10%, #fce4ee 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 85%, #fde8f5 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 55% 50%, #fff4f8 0%, transparent 70%);
+  z-index:0;pointer-events:none;
 }
 
-.grain{
-  position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:1;opacity:0.35;
+#float-canvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:1;
 }
 
 .card{
   position:relative;z-index:10;
-  background:#faf6ee;
-  border:2px solid #2c1a0e;
-  border-radius:4px;
-  box-shadow:6px 6px 0 #2c1a0e;
-  padding:36px 28px 40px;
+  background:rgba(255,248,252,0.88);
+  border:1.5px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 4px 40px var(--shadow), 0 1px 0 rgba(255,255,255,0.9) inset;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  padding:40px 30px 44px;
   max-width:400px;width:100%;
   text-align:center;
+  animation:cardIn .7s cubic-bezier(.34,1.3,.64,1) both;
+}
+
+@keyframes cardIn{
+  from{transform:translateY(24px) scale(0.95);opacity:0}
+  to{transform:translateY(0) scale(1);opacity:1}
 }
 
 .eyebrow{
-  font-family:'Special Elite',monospace;
-  font-size:11px;letter-spacing:4px;
-  color:#8c6a3f;
+  font-family:'DM Sans',sans-serif;
+  font-size:11px;letter-spacing:3.5px;
+  color:var(--text-soft);
   text-transform:uppercase;
-  margin-bottom:14px;
-  border-bottom:1px solid #c9b48a;
-  padding-bottom:10px;
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;
+  justify-content:center;
+}
+.eyebrow::before,.eyebrow::after{
+  content:'';flex:1;max-width:40px;
+  height:1px;background:var(--border);
 }
 
 .main-heading{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(26px,7vw,36px);
-  font-weight:700;
-  color:#1a0e05;
-  line-height:1.25;
-  margin-bottom:10px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,8vw,38px);
+  font-weight:600;
+  color:var(--text-dark);
+  line-height:1.2;
+  margin-bottom:12px;
+  animation:fadeUp .6s .2s both;
+}
+
+.main-heading .accent{
+  font-style:italic;font-weight:500;
+  color:var(--pink-4);
 }
 
 .sub-text{
-  font-family:'Playfair Display',serif;
+  font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:clamp(14px,3.8vw,16px);
-  color:#6b4c28;
-  line-height:1.7;
-  margin-bottom:24px;
+  font-size:clamp(15px,4vw,17px);
+  color:var(--text-mid);
+  line-height:1.75;
+  margin-bottom:28px;
+  animation:fadeUp .6s .35s both;
+}
+
+@keyframes fadeUp{
+  from{transform:translateY(12px);opacity:0}
+  to{transform:translateY(0);opacity:1}
 }
 
 .divider{
   border:none;
-  border-top:1px dashed #c9b48a;
-  margin:20px 0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--pink-2),transparent);
+  margin:0 0 24px;
+  animation:fadeUp .6s .45s both;
 }
 
 .date-box{
-  background:#f5ede0;
-  border:1.5px solid #2c1a0e;
-  border-radius:3px;
-  box-shadow:3px 3px 0 #2c1a0e;
-  padding:16px 18px;
+  background:linear-gradient(135deg,rgba(253,226,236,0.6),rgba(249,184,208,0.25));
+  border:1.5px solid var(--pink-2);
+  border-radius:14px;
+  padding:20px 22px;
   margin-bottom:32px;
+  animation:fadeUp .6s .5s both;
 }
 
 .date-label{
   font-size:10px;letter-spacing:3px;
-  color:#8c6a3f;text-transform:uppercase;
-  margin-bottom:8px;display:block;
+  color:var(--text-soft);text-transform:uppercase;
+  margin-bottom:10px;display:block;
 }
 
 .date-q{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(17px,5vw,21px);
-  color:#1a0e05;line-height:1.4;
-  font-weight:700;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(19px,5.5vw,23px);
+  color:var(--text-dark);line-height:1.45;
+  font-weight:600;
 }
 
 .btn-row{
-  display:flex;gap:16px;align-items:center;
-  justify-content:center;min-height:60px;
-  position:relative;
+  display:flex;gap:12px;align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  animation:fadeUp .6s .6s both;
 }
 
 .btn-yes{
-  font-family:'Special Elite',monospace;
-  font-size:clamp(15px,4.5vw,18px);
-  letter-spacing:2px;text-transform:uppercase;
-  background:#2c1a0e;color:#f0ebe0;
-  border:2px solid #2c1a0e;
-  border-radius:3px;
-  padding:13px 32px;
+  font-family:'DM Sans',sans-serif;
+  font-weight:500;
+  font-size:15px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  background:linear-gradient(135deg,#f9b8d0,#e0758f);
+  color:#fff;
+  border:none;
+  border-radius:50px;
+  padding:14px 32px;
   cursor:pointer;
-  box-shadow:4px 4px 0 #8c6a3f;
-  transition:transform 0.1s,box-shadow 0.1s;
+  box-shadow:0 4px 18px rgba(224,117,143,0.35), 0 1px 0 rgba(255,255,255,0.3) inset;
+  transition:transform 0.15s,box-shadow 0.15s;
   flex-shrink:0;
+  white-space:nowrap;
 }
-.btn-yes:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 #8c6a3f;}
-.btn-yes:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #8c6a3f;}
+.btn-yes:hover{
+  transform:translateY(-2px);
+  box-shadow:0 7px 24px rgba(224,117,143,0.45), 0 1px 0 rgba(255,255,255,0.3) inset;
+}
+.btn-yes:active{transform:translateY(1px);box-shadow:0 2px 10px rgba(224,117,143,0.3);}
 
 .btn-no{
-  font-family:'Special Elite',monospace;
-  font-size:clamp(13px,3.8vw,15px);
+  font-family:'DM Sans',sans-serif;
+  font-weight:400;
+  font-size:13px;
   letter-spacing:1px;text-transform:uppercase;
-  background:#faf6ee;color:#2c1a0e;
-  border:2px solid #2c1a0e;
-  border-radius:3px;
-  padding:10px 22px;
+  background:transparent;
+  color:var(--text-soft);
+  border:1.5px solid var(--border);
+  border-radius:50px;
+  padding:11px 22px;
   cursor:pointer;
-  box-shadow:3px 3px 0 #c9b48a;
-  position:absolute;right:0;
-  transition:transform 0.1s,box-shadow 0.1s;
+  transition:color 0.12s, border-color 0.12s;
   touch-action:none;white-space:nowrap;
+  flex-shrink:0;
 }
-.btn-no:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #c9b48a;}
+.btn-no:hover{color:var(--text-mid);border-color:var(--pink-3);}
+.btn-no.is-fleeing{
+  position:fixed;z-index:500;
+  transition:left .35s cubic-bezier(.25,1.5,.5,1), top .35s cubic-bezier(.25,1.5,.5,1);
+}
 
+
+/* SAD OVERLAY */
 .overlay-wrap{
   display:none;
   position:fixed;inset:0;z-index:100;
   align-items:center;justify-content:center;
-  background:rgba(26,14,5,0.55);
+  background:rgba(58,26,36,0.35);
+  backdrop-filter:blur(4px);
 }
 .overlay-wrap.on{display:flex;}
 
 .overlay-card{
-  background:#faf6ee;
-  border:2px solid #2c1a0e;
-  border-radius:4px;
-  box-shadow:7px 7px 0 #2c1a0e;
-  padding:36px 28px;
-  max-width:340px;width:90%;
+  background:rgba(255,248,252,0.97);
+  border:1.5px solid var(--pink-2);
+  border-radius:20px;
+  box-shadow:0 8px 40px var(--shadow);
+  padding:38px 28px;
+  max-width:320px;width:90%;
   text-align:center;
-  animation:pop .3s cubic-bezier(.34,1.56,.64,1);
+  animation:pop .35s cubic-bezier(.34,1.5,.64,1);
 }
-@keyframes pop{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 
-.sad-emoji{font-size:48px;display:block;margin-bottom:14px;}
+.sad-emoji{font-size:46px;display:block;margin-bottom:16px;}
 
 .sad-heading{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(18px,5vw,22px);
-  font-weight:700;color:#1a0e05;
-  margin-bottom:8px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,5.5vw,24px);
+  font-weight:600;color:var(--text-dark);
+  margin-bottom:10px;
 }
 .sad-sub{
-  font-family:'Playfair Display',serif;
+  font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:13px;color:#6b4c28;
-  line-height:1.6;margin-bottom:22px;
+  font-size:14px;color:var(--text-mid);
+  line-height:1.65;margin-bottom:24px;
 }
 
 .btn-close{
-  font-family:'Special Elite',monospace;
-  font-size:13px;letter-spacing:1px;text-transform:uppercase;
-  background:#f5ede0;color:#2c1a0e;
-  border:1.5px solid #2c1a0e;border-radius:3px;
-  padding:9px 22px;cursor:pointer;
-  box-shadow:3px 3px 0 #8c6a3f;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+  background:linear-gradient(135deg,#f9b8d0,#e0758f);
+  color:#fff;
+  border:none;border-radius:50px;
+  padding:11px 26px;cursor:pointer;
+  box-shadow:0 4px 14px rgba(224,117,143,0.3);
 }
 
+
+/* FIREWORKS SCREEN */
 .fw-wrap{
   display:none;
   position:fixed;inset:0;z-index:200;
   flex-direction:column;
   align-items:center;justify-content:center;
-  background:#1a0e05;
 }
 .fw-wrap.on{display:flex;}
 #fw-canvas{position:absolute;inset:0;width:100%;height:100%;}
@@ -186,119 +256,123 @@ body{
 .yes-panel{
   position:relative;z-index:10;
   text-align:center;
-  background:rgba(250,246,238,0.1);
-  border:2px solid rgba(250,246,238,0.25);
-  border-radius:4px;
-  box-shadow:6px 6px 0 rgba(250,246,238,0.15);
-  padding:32px 28px;max-width:340px;width:90%;
-  animation:popIn .55s .3s both;
+  background:rgba(255,248,252,0.15);
+  border:1.5px solid rgba(249,184,208,0.4);
+  border-radius:20px;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 8px 40px rgba(200,80,120,0.25);
+  padding:36px 30px;max-width:340px;width:90%;
+  animation:popIn .6s .35s both;
 }
-@keyframes popIn{from{transform:translateY(28px);opacity:0}to{transform:translateY(0);opacity:1}}
-.yes-big{font-size:52px;display:block;margin-bottom:14px;}
+@keyframes popIn{
+  from{transform:translateY(30px) scale(0.9);opacity:0}
+  to{transform:translateY(0) scale(1);opacity:1}
+}
+.yes-big{font-size:54px;display:block;margin-bottom:16px;}
 .yes-h{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(22px,6vw,30px);font-weight:700;
-  color:#f0ebe0;margin-bottom:8px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(24px,7vw,32px);font-weight:600;
+  color:#fff;margin-bottom:10px;
+  text-shadow:0 2px 12px rgba(200,80,120,0.4);
 }
 .yes-s{
-  font-family:'Playfair Display',serif;
+  font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:clamp(13px,3.5vw,16px);
-  color:#c9b48a;line-height:1.55;
+  font-size:clamp(14px,3.8vw,17px);
+  color:rgba(255,240,248,0.9);line-height:1.6;
 }
 </style>
+</head>
+<body>
 
-<div class="grain"></div>
 <canvas id="float-canvas"></canvas>
 
 <div class="card">
-  <div class="eyebrow">— a note, just for you —</div>
-  <div class="main-heading">Hey, you.<br>My favourite person.</div>
+  <div class="eyebrow">✨ hey cherrypie ✨</div>
+  <div class="main-heading">You are slowly becoming<span class="accent">my favourite person,</span> ngl 💕</div>
   <div class="sub-text">
-    In a world full of noise,<br>
-    you are my favourite kind of quietness.<br>
-    My most beautiful chaos.
-    My loveliest blessing.
+    Out of everything good in my life right now <br>
+    you somehow make the list twice.<br>
+    Just so you know 🌸
   </div>
   <hr class="divider">
   <div class="date-box">
-    <span class="date-label">— date proposal —</span>
-    <div class="date-q">Will you go on a<br>date with me tonight?</div>
+    <span class="date-label">— okay but seriously —</span>
+    <div class="date-q">Will you go on a date<br>with me tonight? 💋</div>
   </div>
   <div class="btn-row" id="btn-row">
-    <button class="btn-yes" onclick="sayYes()">Yes!</button>
+    <button class="btn-yes" onclick="sayYes()">Obviously yes ✨</button>
     <button class="btn-no" id="noBtn" onclick="sayNo(event)">No</button>
   </div>
 </div>
 
+
+<!-- SAD OVERLAY -->
 <div class="overlay-wrap" id="sadWrap">
   <div class="overlay-card">
     <span class="sad-emoji">🥺</span>
-    <div class="sad-heading">Oh... okay.</div>
-    <div class="sad-sub">I'll pretend I did not see that.<br>Totally fine. Absolutely fine.<br>(it's not fine)</div>
-    <button class="btn-close" onclick="closeSad()">Let me re-read it...</button>
+    <div class="sad-heading">Oh wow. Okay. Cool.</div>
+    <div class="sad-sub">
+      I'm totally not making a dramatic exit right now.<br>
+      Totally, Fine. Absolutely 🥲<br>
+      (re-read it. pleaseeee.)
+    </div>
+    <button class="btn-close" onclick="closeSad()">Okay okay, let me re-read 💕</button>
   </div>
 </div>
 
+
+<!-- YES FIREWORKS SCREEN -->
 <div class="fw-wrap" id="fwWrap">
   <canvas id="fw-canvas"></canvas>
   <div class="yes-panel">
-    <span class="yes-big">🎉</span>
-    <div class="yes-h">She said yes!</div>
-    <div class="yes-s">Get ready, Jannu.<br>Tonight is going to be absolutely magical.<br>I love you✨❤️🧿</div>
+    <span class="yes-big">🌸</span>
+    <div class="yes-h">She said yes! 💕</div>
+    <div class="yes-s">
+      Get ready, baby!<br>
+      Tonight is going to be everything ✨❤️
+    </div>
   </div>
 </div>
 
+
 <script>
+/* ─── floating particles ─── */
 const fc = document.getElementById('float-canvas');
 const fx = fc.getContext('2d');
 let FW, FH, floats = [];
-const SYMS = ['❤️','✨','🌸'];
+const SYMS = ['💕','✨','🌸','❤️'];
 
-function resizeFloat(){
-  FW = fc.width = window.innerWidth;
-  FH = fc.height = window.innerHeight;
-}
-resizeFloat();
-window.addEventListener('resize', resizeFloat);
+function resizeFloat(){FW=fc.width=window.innerWidth;FH=fc.height=window.innerHeight;}
+resizeFloat();window.addEventListener('resize',resizeFloat);
 
 function makeFloat(){
-  return {
-    x: Math.random()*FW,
-    y: Math.random()*FH,
-    vx: (Math.random()-.5)*0.35,
-    vy: (Math.random()-.5)*0.35,
-    sym: SYMS[Math.floor(Math.random()*SYMS.length)],
-    size: 14+Math.random()*22,
-    alpha: 0.25+Math.random()*0.55,
-    rot: Math.random()*Math.PI*2,
-    rotV: (Math.random()-.5)*0.008,
-    pulse: Math.random()*Math.PI*2,
-    pulseV: 0.015+Math.random()*0.015
+  return{
+    x:Math.random()*FW,y:Math.random()*FH,
+    vx:(Math.random()-.5)*0.3,vy:(Math.random()-.5)*0.3,
+    sym:SYMS[Math.floor(Math.random()*SYMS.length)],
+    size:12+Math.random()*20,
+    alpha:0.15+Math.random()*0.35,
+    rot:Math.random()*Math.PI*2,
+    rotV:(Math.random()-.5)*0.006,
+    pulse:Math.random()*Math.PI*2,
+    pulseV:0.012+Math.random()*0.012
   };
 }
-
-for(let i=0;i<32;i++){floats.push(makeFloat());}
+for(let i=0;i<28;i++)floats.push(makeFloat());
 
 function animFloat(){
   fx.clearRect(0,0,FW,FH);
   floats.forEach(p=>{
-    p.pulse+=p.pulseV;
-    p.rot+=p.rotV;
-    p.x+=p.vx;
-    p.y+=p.vy;
-    if(p.x<-40)p.x=FW+40;
-    if(p.x>FW+40)p.x=-40;
-    if(p.y<-40)p.y=FH+40;
-    if(p.y>FH+40)p.y=-40;
-    const scale=1+Math.sin(p.pulse)*0.08;
+    p.pulse+=p.pulseV;p.rot+=p.rotV;p.x+=p.vx;p.y+=p.vy;
+    if(p.x<-40)p.x=FW+40;if(p.x>FW+40)p.x=-40;
+    if(p.y<-40)p.y=FH+40;if(p.y>FH+40)p.y=-40;
+    const sc=1+Math.sin(p.pulse)*0.07;
     fx.save();
     fx.globalAlpha=p.alpha*(0.85+Math.sin(p.pulse)*0.15);
-    fx.translate(p.x,p.y);
-    fx.rotate(p.rot);
-    fx.scale(scale,scale);
-    fx.font=`${p.size}px serif`;
-    fx.textAlign='center';fx.textBaseline='middle';
+    fx.translate(p.x,p.y);fx.rotate(p.rot);fx.scale(sc,sc);
+    fx.font=`${p.size}px serif`;fx.textAlign='center';fx.textBaseline='middle';
     fx.fillText(p.sym,0,0);
     fx.restore();
   });
@@ -306,58 +380,95 @@ function animFloat(){
 }
 animFloat();
 
-let noClicks=0;
-const noBtn=document.getElementById('noBtn');
+
+/* ─── no button logic ─── */
+let noClicks = 0;
+let isFleeing = false;
+const noBtn = document.getElementById('noBtn');
 
 function sayNo(e){
   e.preventDefault();
+  e.stopPropagation();
   noClicks++;
-  if(noClicks===1){
+  if(noClicks === 1){
     document.getElementById('sadWrap').classList.add('on');
+  } else if(!isFleeing){
+    startFleeing();
   } else {
-    flyAway();
+    // already fleeing — button was clicked, make it jump away again
+    jumpAway(parseFloat(noBtn.style.left), parseFloat(noBtn.style.top));
   }
 }
 
-function closeSad(){document.getElementById('sadWrap').classList.remove('on');}
-
-function flyAway(){
-  const r=noBtn.getBoundingClientRect();
-  noBtn.style.cssText=`position:fixed;left:${r.left}px;top:${r.top}px;right:auto;z-index:500;transition:left .4s cubic-bezier(.25,1.5,.5,1),top .4s cubic-bezier(.25,1.5,.5,1),font-size .3s,padding .3s;`;
-  setTimeout(()=>{
-    const side=Math.random()>.5?1:-1;
-    const nx=Math.max(8,Math.min(window.innerWidth-100, r.left+side*(140+Math.random()*100)));
-    const ny=Math.max(8,Math.min(window.innerHeight-60, r.top+(Math.random()-.5)*200));
-    noBtn.style.left=nx+'px';
-    noBtn.style.top=ny+'px';
-    noBtn.style.fontSize='11px';
-    noBtn.style.padding='7px 14px';
-    noBtn.style.opacity='0.65';
-  },20);
-  noBtn.addEventListener('mousemove',dodgeM,{passive:true});
-  noBtn.addEventListener('touchmove',dodgeT,{passive:true});
+function closeSad(){
+  document.getElementById('sadWrap').classList.remove('on');
 }
 
-function dodgeM(e){dodge(e.clientX,e.clientY);}
-function dodgeT(e){if(e.touches[0])dodge(e.touches[0].clientX,e.touches[0].clientY);}
+function startFleeing(){
+  isFleeing = true;
+  const r = noBtn.getBoundingClientRect();
+  noBtn.style.position   = 'fixed';
+  noBtn.style.left       = r.left + 'px';
+  noBtn.style.top        = r.top  + 'px';
+  noBtn.style.right      = 'auto';
+  noBtn.style.bottom     = 'auto';
+  noBtn.style.margin     = '0';
+  noBtn.style.zIndex     = '500';
+  noBtn.style.transition = 'left .35s cubic-bezier(.25,1.5,.5,1), top .35s cubic-bezier(.25,1.5,.5,1)';
+  noBtn.classList.add('is-fleeing');
 
-function dodge(cx,cy){
-  const bx=parseFloat(noBtn.style.left)+noBtn.offsetWidth/2;
-  const by=parseFloat(noBtn.style.top)+noBtn.offsetHeight/2;
-  const dx=bx-cx,dy=by-cy;
-  const d=Math.sqrt(dx*dx+dy*dy);
-  if(d<90){
-    const push=130;
-    let nx=bx+(dx/d)*push;
-    let ny=by+(dy/d)*push;
-    nx=Math.max(4,Math.min(window.innerWidth-noBtn.offsetWidth-4,nx));
-    ny=Math.max(4,Math.min(window.innerHeight-noBtn.offsetHeight-4,ny));
-    noBtn.style.transition='left .18s,top .18s';
-    noBtn.style.left=nx+'px';
-    noBtn.style.top=ny+'px';
+  // initial jump away using top-left origin
+  setTimeout(()=> jumpAway(r.left, r.top), 20);
+
+  document.addEventListener('mousemove', onMouseMove, {passive:true});
+  document.addEventListener('touchmove',  onTouchMove,  {passive:true});
+}
+
+function onMouseMove(e){ dodgeFrom(e.clientX, e.clientY); }
+function onTouchMove(e){ if(e.touches[0]) dodgeFrom(e.touches[0].clientX, e.touches[0].clientY); }
+
+function dodgeFrom(cx, cy){
+  if(!isFleeing) return;
+  const bx = parseFloat(noBtn.style.left) + noBtn.offsetWidth  / 2;
+  const by = parseFloat(noBtn.style.top)  + noBtn.offsetHeight / 2;
+  const dx = bx - cx, dy = by - cy;
+  const d  = Math.sqrt(dx*dx + dy*dy);
+  const TRIGGER = 110, PUSH = 160;
+  if(d < TRIGGER && d > 0){
+    // push away from cursor, then snap to safe zone
+    let nx = (bx + (dx/d)*PUSH) - noBtn.offsetWidth  / 2;
+    let ny = (by + (dy/d)*PUSH) - noBtn.offsetHeight / 2;
+    clampAndSet(nx, ny);
   }
 }
 
+function jumpAway(fromX, fromY){
+  // fromX/fromY are the button's top-left corner
+  const W = window.innerWidth,  H = window.innerHeight;
+  const bw = noBtn.offsetWidth || 80, bh = noBtn.offsetHeight || 40;
+  // pick a random spot that is definitely fully on screen
+  const maxX = W - bw - 10;
+  const maxY = H - bh - 10;
+  let nx, ny, tries = 0;
+  do {
+    nx = 10 + Math.random() * maxX;
+    ny = 10 + Math.random() * maxY;
+    tries++;
+  } while(tries < 20 && Math.abs(nx - fromX) < 80 && Math.abs(ny - fromY) < 60);
+  clampAndSet(nx, ny);
+}
+
+function clampAndSet(nx, ny){
+  const W = window.innerWidth,  H = window.innerHeight;
+  const bw = noBtn.offsetWidth || 80, bh = noBtn.offsetHeight || 40;
+  nx = Math.max(10, Math.min(W - bw - 10, nx));
+  ny = Math.max(10, Math.min(H - bh - 10, ny));
+  noBtn.style.left = nx + 'px';
+  noBtn.style.top  = ny + 'px';
+}
+
+
+/* ─── yes → fireworks ─── */
 function sayYes(){
   document.getElementById('fwWrap').classList.add('on');
   startFireworks();
@@ -371,20 +482,20 @@ function resizeFW(){fwC.width=window.innerWidth;fwC.height=window.innerHeight;}
 resizeFW();window.addEventListener('resize',resizeFW);
 
 function burst(x,y){
-  const n=50+Math.floor(Math.random()*30);
-  const hue=340+Math.random()*30;
+  const n=45+Math.floor(Math.random()*25);
+  const hue=330+Math.random()*40; // pinks/roses
   for(let i=0;i<n;i++){
     const a=(Math.PI*2*i)/n,spd=2+Math.random()*5;
     fwParts.push({x,y,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd,
-      alpha:1,color:`hsl(${hue+Math.random()*25},90%,65%)`,
+      alpha:1,color:`hsl(${hue+Math.random()*20},80%,72%)`,
       sz:1.5+Math.random()*3,g:0.06+Math.random()*0.05});
   }
-  const ES=['❤️','✨','🌸'];
-  for(let i=0;i<7;i++){
+  const ES=['💕','✨','🌸','❤️','💋'];
+  for(let i=0;i<8;i++){
     const a=Math.random()*Math.PI*2,spd=1.5+Math.random()*3;
     fwParts.push({x,y,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd-1,
       alpha:1,emoji:ES[Math.floor(Math.random()*ES.length)],
-      sz:16+Math.random()*14,g:0.03});
+      sz:14+Math.random()*14,g:0.03});
   }
 }
 
@@ -395,15 +506,15 @@ function launchRocket(){
 }
 
 function animFW(){
-  fwX.fillStyle='rgba(26,14,5,0.2)';
+  fwX.fillStyle='rgba(60,10,30,0.18)';
   fwX.fillRect(0,0,fwC.width,fwC.height);
   rockets.forEach((r,ri)=>{
-    r.trail.push({x:r.x,y:r.y,a:.8});
+    r.trail.push({x:r.x,y:r.y,a:.85});
     r.x+=r.vx;r.y+=r.vy;r.vy+=0.14;
     r.trail.forEach(t=>{
       t.a-=0.07;
       fwX.beginPath();fwX.arc(t.x,t.y,1.5,0,Math.PI*2);
-      fwX.fillStyle=`rgba(240,235,224,${Math.max(0,t.a)})`;fwX.fill();
+      fwX.fillStyle=`rgba(249,184,208,${Math.max(0,t.a)})`;fwX.fill();
     });
     r.trail=r.trail.filter(t=>t.a>0);
     if(r.y<=r.tY||r.vy>=0){burst(r.x,r.y);rockets.splice(ri,1);}
@@ -414,12 +525,12 @@ function animFW(){
       fwX.font=`${p.sz}px serif`;
       fwX.textAlign='center';fwX.textBaseline='middle';
       fwX.fillText(p.emoji,p.x,p.y);fwX.restore();
-    } else {
+    }else{
       fwX.beginPath();fwX.arc(p.x,p.y,p.sz,0,Math.PI*2);
       fwX.fillStyle=p.color;fwX.globalAlpha=p.alpha;fwX.fill();fwX.globalAlpha=1;
     }
     p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=.98;
-    p.alpha-=0.011+Math.random()*0.007;
+    p.alpha-=0.010+Math.random()*0.007;
     if(p.alpha<=0)fwParts.splice(i,1);
   });
   requestAnimationFrame(animFW);
@@ -431,8 +542,11 @@ function startFireworks(){
   let c=0;
   function next(){
     launchRocket();c++;
-    setTimeout(next,c<4?280:500+Math.random()*900);
+    setTimeout(next,c<4?260:450+Math.random()*850);
   }
   next();
 }
 </script>
+
+</body>
+</html>
